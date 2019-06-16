@@ -1,12 +1,12 @@
-# Image-Algorithm-FPS-Test-Framework
+# Image-Algorithm-FPS-Test-Framework 图像算法FPS测试框架
 
-这时用于测试图像算法FPS的框架。使用此框架提供的接口，只需要实现产生图片和图片算法这两个接口，以及简单的方法调用，就可以方便的测试图像算法的处理速度。
+使用此框架提供的接口，只需要实现产生图片和图片算法这两个接口，以及简单的方法调用，就可以方便的测试图像算法的处理速度。
 
 ![思维导图](./docs/imgs/FPSTestFramework.png "FPS-Test-Framework")
 
 本项目依赖Qt5和OpenCV3.
 
-本项目正在维护中，如果有任何疑问或者建议，可以发Issues.
+如果有任何疑问或者建议，可以发Issues.
 
 也欢迎加群讨论：728998570
 
