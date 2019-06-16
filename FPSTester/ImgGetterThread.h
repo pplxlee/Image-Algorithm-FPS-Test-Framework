@@ -7,6 +7,7 @@
 namespace fpsTest {
 
 class BlockQueue;
+class ImgGetter;
 
 class ImgGetterThread : public QThread
 {
@@ -30,8 +31,7 @@ private:
     bool mStop;
 
     std::shared_ptr<BlockQueue> mImgQueue;
-
-    QString mImgDir;
+    ImgGetter *mImgGetter;
 
     friend class FPSTester;
 };

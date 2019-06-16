@@ -33,7 +33,7 @@ public slots:
 
 private:
     std::shared_ptr<BlockQueue> mImgQueue;
-    Algorithm *mpAlgorithm;
+    Algorithm *mAlgorithm;
 
     bool mStop;
     QElapsedTimer mElapsTimer;

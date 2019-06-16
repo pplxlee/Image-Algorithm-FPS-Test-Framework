@@ -5,6 +5,10 @@
 #include "ImgGetterThread.h"
 #include <QObject>
 
+namespace cv {
+class Mat;
+}
+
 namespace fpsTest {
 
 class FPSTester : public QObject
@@ -13,8 +17,8 @@ class FPSTester : public QObject
 public:
     explicit FPSTester(QObject *parent = nullptr);
 
-    void setImgDir(QString dir);
     void setTestTime(qint64 time);
+    void setImgGetter(ImgGetter *igt);
     void setAlgorithm(Algorithm *alg);
     void setSavePath(const QString &path);
 
@@ -48,6 +52,27 @@ private:
 
     qint64 mTestTime;
     qint64 mTestCount;
+};
+
+
+class ImgGetter
+{
+public:
+    ImgGetter() {}
+    virtual ~ImgGetter() {}
+
+    virtual bool init() = 0;
+    virtual cv::Mat getImg() = 0;
+};
+
+class Algorithm
+{
+public:
+    Algorithm() {}
+    virtual ~Algorithm() {}
+
+    virtual bool init() = 0;
+    virtual void update(cv::Mat& img) = 0;
 };
 }
 

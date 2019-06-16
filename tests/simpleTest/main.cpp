@@ -7,7 +7,7 @@ int main(int argc, char *argv[])
 
     SimpleTest simpleTest;
     simpleTest.init();
-    simpleTest.start(60*1000);
+    simpleTest.start(15*1000);
 
     return a.exec();
 }

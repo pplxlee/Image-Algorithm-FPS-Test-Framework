@@ -14,19 +14,19 @@ fpsTest::FPSTester::FPSTester(QObject *parent) : QObject (parent)
     connect(this, &FPSTester::stopped, this, &FPSTester::onStopped);
 }
 
-void fpsTest::FPSTester::setImgDir(QString dir)
-{
-    mImgGetThread.mImgDir = dir;
-}
-
 void fpsTest::FPSTester::setTestTime(qint64 time)
 {
     mFPSTestThread.mTestTime = time;
 }
 
+void fpsTest::FPSTester::setImgGetter(fpsTest::ImgGetter *igt)
+{
+    mImgGetThread.mImgGetter = igt;
+}
+
 void fpsTest::FPSTester::setAlgorithm(fpsTest::Algorithm *alg)
 {
-    mFPSTestThread.mpAlgorithm = alg;
+    mFPSTestThread.mAlgorithm = alg;
 }
 
 void fpsTest::FPSTester::setSavePath(const QString &path)
@@ -37,6 +37,7 @@ void fpsTest::FPSTester::setSavePath(const QString &path)
 void fpsTest::FPSTester::start()
 {
     mTestTime = 0;
+    mTestCount = 0;
     mImgGetThread.start();
     mFPSTestThread.start();
 }

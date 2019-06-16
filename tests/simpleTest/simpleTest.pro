@@ -31,7 +31,7 @@ HEADERS += \
     ../../FPSTester/FPSTesterThread.h \
     ../../FPSTester/ImgGetterThread.h \
     ../../FPSTester/BlockQueue.h \
-    ../../FPSTester/FPSTester.h
+    ../../FPSTester/FPSTester.h \
 
 INCLUDEPATH += ../../FPSTester
 

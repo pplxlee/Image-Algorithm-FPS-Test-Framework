@@ -1,9 +1,12 @@
 #include "FPSTesterThread.h"
 #include "BlockQueue.h"
+#include "FPSTester.h"
+#include <opencv2/core.hpp>
+#include <opencv2/highgui.hpp>
 
 fpsTest::FPSTesterThread::FPSTesterThread(QObject *parent)
     : QThread (parent)
-    , mpAlgorithm(nullptr)
+    , mAlgorithm(nullptr)
     , mStop (false)
     , mTestTime(0)
 {
@@ -27,17 +30,17 @@ void fpsTest::FPSTesterThread::stop()
 
 void fpsTest::FPSTesterThread::run()
 {
+    bool algorithmValid = true;
+
     if(!mImgQueue.get()) {
         emit errorMsg(tr("Image queue is not set!"));
         return;
     }
 
-    // TODO: 定义算法接口类，并取消这部分注释
-//    if(!mpAlgorithm)
-//    {
-//        emit errorMsg(tr("Algorithm is not set!"));
-//        return;
-//    }
+    if(!mAlgorithm || !mAlgorithm->init()) {
+        algorithmValid = false;
+        qWarning()<<"Algorithm is invalid!";
+    }
 
     qint64 t = 0;
     qint64 count = 0;
@@ -47,14 +50,16 @@ void fpsTest::FPSTesterThread::run()
     qDebug()<<"FPSTester Thread started!";
 
     while (!mStop && (mTestTime <= 0 || t < mTestTime)) {
-//        auto img = mImgQueue->dequeue();
+        auto img = mImgQueue->dequeue();
 
-        // TODO: 具体逻辑
-        //
-        // mpAlgorithm->update()
+        if(!img.empty()) {
+            if(algorithmValid)
+                mAlgorithm->update(img);
+            ++count;
+        }
 
         t = mElapsTimer.elapsed();
-        ++count;
+
         if(t - mLastEmitTime >= 1000)
         {
             emit updated(t, count);

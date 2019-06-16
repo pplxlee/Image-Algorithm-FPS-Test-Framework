@@ -1,10 +1,36 @@
 #ifndef SIMPLETEST_H
 #define SIMPLETEST_H
 
-#include <QObject>
 #include "FPSTester.h"
+#include <QObject>
+#include <opencv2/core.hpp>
 
-using fpsTest::FPSTester;
+using namespace fpsTest;
+
+
+class SimpleImgGetter : public ImgGetter
+{
+public:
+    SimpleImgGetter();
+
+    bool init();
+    cv::Mat getImg();
+
+private:
+    cv::Mat mSrcImg;
+    cv::Rect mRect;
+};
+
+
+class SimpleAlgorithm : public Algorithm
+{
+public:
+    SimpleAlgorithm() {}
+
+    bool init();
+    void update(cv::Mat &img);
+};
+
 
 class SimpleTest : public QObject
 {
@@ -22,12 +48,13 @@ public:
      */
     void start(qint64 msec = 0);
 
-signals:
-
-public slots:
-
 private:
     FPSTester mFPSTester;
+    SimpleImgGetter mImgGetter;
+    SimpleAlgorithm mAlgorithm;
 };
+
+
+
 
 #endif // SIMPLETEST_H
