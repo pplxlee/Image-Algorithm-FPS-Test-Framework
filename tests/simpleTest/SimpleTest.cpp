@@ -12,6 +12,7 @@ void SimpleTest::init()
 {
     mFPSTester.setImgGetter(&mImgGetter);
     mFPSTester.setAlgorithm(&mAlgorithm);
+    mFPSTester.setSavePath("res.txt");
 }
 
 void SimpleTest::start(qint64 msec)

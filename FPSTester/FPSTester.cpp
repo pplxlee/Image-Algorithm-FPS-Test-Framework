@@ -1,5 +1,7 @@
 #include "FPSTester.h"
 #include <QDebug>
+#include <QFile>
+#include <QDir>
 
 fpsTest::FPSTester::FPSTester(QObject *parent) : QObject (parent)
 {
@@ -57,7 +59,19 @@ void fpsTest::FPSTester::onTesterUpdated(qint64 t, qint64 count)
     mTestCount = count;
     qInfo("FPS: %.3f", fps);
 
-    // TODO: 保存文件
+    if(mSavePath.isNull()) {
+        qWarning()<<"Save file is not set!";
+        return;
+    }
+
+    QFile file(mSavePath);
+    if (!file.open(QFile::Append | QFile::Text)) {
+        qWarning()<<"Cannot write file"<< QDir::toNativeSeparators(mSavePath);
+        qWarning()<<file.errorString();
+        return;
+    }
+    QTextStream out(&file);
+    out << QString("t:%1, count:%2, FPS:%3\n").arg(t).arg(count).arg(fps);
 }
 
 void fpsTest::FPSTester::onTesterStopped()

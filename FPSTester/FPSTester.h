@@ -44,7 +44,7 @@ public:
     void setAlgorithm(Algorithm *alg);
     /**
      * @brief setSavePath
-     *   TODO: 设置结果保存路径 (还没有实现)
+     *   设置结果保存路径
      * @param path
      */
     void setSavePath(const QString &path);
